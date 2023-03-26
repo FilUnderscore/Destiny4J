@@ -13,7 +13,7 @@ DestinyAPI destinyApi = new DestinyAPI("API-KEY", "CLIENT-ID", "CLIENT-SECRET");
 API calls can then be made through the `DestinyAPI` instanced object. See https://bungie-net.github.io/ for the full list of API calls and callbacks.
 
 ## Authorized User Requests
-To make authorized user requests, you must create a [DestinyAPI.APIUser](https://github.com/FilUnderscore/Destiny4J/blob/44159f46cd0b720805848570f5e1a1f944fef309/src/main/java/net/bungie/api/destiny/DestinyAPI.java#L470) object.
+To make authorized user requests, you must create a [DestinyAPI.APIUser](https://github.com/FilUnderscore/Destiny4J/blob/main/src/main/java/net/bungie/api/destiny/DestinyAPI.java#L470) object.
 ```java
 DestinyAPI.APIUser user = new DestinyAPI.APIUser("user-access-token", "user-refresh-token", accessTokenExpiryTimeInSeconds, refreshTokenExpiryTimeInSeconds);
 ```
@@ -26,7 +26,7 @@ Using your Bungie API Key, initialize the [DestinyManifest](https://github.com/F
 DestinyManifest.init("API-KEY", DestinyManifestFormat);
 ```
 
-[DestinyManifestFormat](https://github.com/FilUnderscore/Destiny4J/blob/44159f46cd0b720805848570f5e1a1f944fef309/src/main/java/net/bungie/api/destiny/manifest/DestinyManifest.java#L70) is an enum with two options:
+[DestinyManifestFormat](https://github.com/FilUnderscore/Destiny4J/blob/main/src/main/java/net/bungie/api/destiny/manifest/DestinyManifest.java#L70) is an enum with two options:
 * JSON
 * SQLite
 

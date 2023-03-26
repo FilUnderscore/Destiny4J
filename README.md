@@ -1,5 +1,5 @@
 # Destiny4J
-Java binding for Bungie's Destiny API.
+Java wrapper for Bungie's Destiny API.
 
 ## Usage
 Get your Bungie Application API login through https://www.bungie.net/en/Application

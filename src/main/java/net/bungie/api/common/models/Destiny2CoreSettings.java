@@ -1,8 +1,9 @@
 package net.bungie.api.common.models;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyVendorDefinition;
 import net.bungie.api.destiny.definitions.seasons.DestinySeasonDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class Destiny2CoreSettings 
 {

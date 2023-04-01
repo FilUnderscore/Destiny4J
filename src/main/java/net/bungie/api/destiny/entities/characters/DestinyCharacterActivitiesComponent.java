@@ -2,11 +2,12 @@ package net.bungie.api.destiny.entities.characters;
 
 import java.util.Date;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.DestinyActivity;
 import net.bungie.api.destiny.definitions.DestinyActivityDefinition;
 import net.bungie.api.destiny.definitions.DestinyActivityModeDefinition;
 import net.bungie.api.destiny.historicalstats.definitions.DestinyActivityModeType;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyCharacterActivitiesComponent 
 {

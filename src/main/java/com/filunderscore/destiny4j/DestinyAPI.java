@@ -1,4 +1,4 @@
-package net.bungie.api.destiny;
+package com.filunderscore.destiny4j;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -29,6 +29,7 @@ import com.google.gson.stream.MalformedJsonException;
 
 import net.bungie.api.BungieMembershipType;
 import net.bungie.api.CoreSettingsConfiguration;
+import net.bungie.api.destiny.DestinyComponentType;
 import net.bungie.api.destiny.config.DestinyManifest;
 import net.bungie.api.destiny.historicalstats.DestinyActivityHistoryResults;
 import net.bungie.api.destiny.historicalstats.DestinyPostGameCarnageReportData;
@@ -266,43 +267,7 @@ public final class DestinyAPI
 	
 	private <T> T get(String apiUrl, String endpoint, Class<T> clazz, RestHeader[] headers, BasicNameValuePair...params) throws APIErrorException
 	{
-		try
-		{
-			URIBuilder builder = new URIBuilder(apiUrl + endpoint).setParameters(params);
-			
-			HttpGet get = new HttpGet(builder.build());
-			
-			get.setHeader("X-API-Key", this.api_key);
-			
-			for(RestHeader header : headers)
-			{
-				get.setHeader(header.key, header.value);
-			}
-			
-			HttpResponse response = client.execute(get, context);
-			String jsonString = EntityUtils.toString(response.getEntity());
-			
-			System.out.println(String.format("GET %s %s %s", apiUrl, endpoint, StringUtils.abbreviate(jsonString, 1000)));
-
-			JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
-			
-			int errorCode = json.get("ErrorCode").getAsInt();
-			int throttleSeconds = json.get("ThrottleSeconds").getAsInt();
-			String errorStatus = json.get("ErrorStatus").getAsString();
-			String message = json.get("Message").getAsString();
-			Map<String, String> messageData = gson.fromJson(json.get("MessageData"), Map.class);
-			
-			if(errorCode != 1) // TODO: Error codes
-				throw new APIErrorException(errorCode, throttleSeconds, errorStatus, message, messageData);
-				
-			return gson.fromJson(json.get("Response").getAsJsonObject(), clazz);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return gson.fromJson(get_json(apiUrl, endpoint, headers, params), clazz);
 	}
 	
 	private <T> T get(String endpoint, Type type, BasicNameValuePair...params) throws APIErrorException
@@ -312,6 +277,11 @@ public final class DestinyAPI
 	
 	private <T> T get(String apiUrl, String endpoint, Type type, RestHeader[] headers, BasicNameValuePair...params) throws APIErrorException
 	{
+		return gson.fromJson(get_json(apiUrl, endpoint, headers, params), type);
+	}
+	
+	private JsonObject get_json(String apiUrl, String endpoint, RestHeader[] headers, BasicNameValuePair...params) throws APIErrorException
+	{
 		try
 		{
 			URIBuilder builder = new URIBuilder(apiUrl + endpoint).setParameters(params);
@@ -341,11 +311,7 @@ public final class DestinyAPI
 			if(errorCode != 1) // TODO: Error codes
 				throw new APIErrorException(errorCode, throttleSeconds, errorStatus, message, messageData);
 				
-			return gson.fromJson(json.get("Response").getAsJsonObject(), type);
-		}
-		catch(MalformedJsonException e)
-		{
-			throw new APIErrorException(5, -1, "", "Bungie.Net is down for maintenance.", new HashMap<>());
+			return json.get("Response").getAsJsonObject();
 		}
 		catch (Exception e)
 		{

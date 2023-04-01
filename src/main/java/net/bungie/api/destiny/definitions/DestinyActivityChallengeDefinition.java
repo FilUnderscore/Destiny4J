@@ -1,8 +1,8 @@
 package net.bungie.api.destiny.definitions;
 
-import net.bungie.api.destiny.DestinyItemQuantity;
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
 
-import net.bungie.api.destiny.manifest.DestinyManifest;
+import net.bungie.api.destiny.DestinyItemQuantity;
 
 public class DestinyActivityChallengeDefinition 
 {

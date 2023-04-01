@@ -1,4 +1,4 @@
-package net.bungie.api.destiny.manifest;
+package com.filunderscore.destiny4j.manifest;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
+import com.filunderscore.destiny4j.DestinyAPI;
+import com.filunderscore.destiny4j.DestinyAPI.APIErrorException;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 
-import net.bungie.api.destiny.DestinyAPI;
-import net.bungie.api.destiny.DestinyAPI.APIErrorException;
 import net.bungie.api.destiny.definitions.DestinyDefinition;
 
 public abstract class DestinyManifest 
@@ -99,6 +99,7 @@ public abstract class DestinyManifest
 	public final void refresh()
 	{
 		System.out.println("Fetching updated Destiny Manifest.");
+		String oldVersion = this.manifest != null ? this.manifest.version : null;
 		
 		try 
 		{
@@ -117,13 +118,16 @@ public abstract class DestinyManifest
 			e1.printStackTrace();
 		}
 		
-		this.loadDefinitions();
-		
-		System.out.println(String.format("Destiny Manifest updated to version %s", this.manifest.version));
-		
-		for(DestinyManifestCallback callback : callbacks)
+		if(oldVersion == null || !oldVersion.equals(this.manifest.version))
 		{
-			callback.onManifestRefreshed(this);
+			this.loadDefinitions();
+			
+			System.out.println(String.format("Destiny Manifest updated to version %s", this.manifest.version));
+		
+			for(DestinyManifestCallback callback : callbacks)
+			{
+				callback.onManifestRefreshed(this);
+			}
 		}
 	}
 	

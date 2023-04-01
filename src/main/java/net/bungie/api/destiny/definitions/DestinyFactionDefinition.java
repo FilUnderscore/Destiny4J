@@ -2,8 +2,9 @@ package net.bungie.api.destiny.definitions;
 
 import java.util.Map;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.common.DestinyDisplayPropertiesDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyFactionDefinition extends DestinyDefinition
 {

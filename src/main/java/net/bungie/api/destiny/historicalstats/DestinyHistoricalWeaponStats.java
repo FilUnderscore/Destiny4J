@@ -2,8 +2,9 @@ package net.bungie.api.destiny.historicalstats;
 
 import java.util.Map;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyInventoryItemDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyHistoricalWeaponStats 
 {

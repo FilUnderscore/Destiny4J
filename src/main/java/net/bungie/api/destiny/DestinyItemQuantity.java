@@ -1,7 +1,8 @@
 package net.bungie.api.destiny;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyInventoryItemDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyItemQuantity 
 {

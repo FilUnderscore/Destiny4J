@@ -1,8 +1,9 @@
 package net.bungie.api.destiny.definitions;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.constants.DestinyEnvironmentLocationMapping;
 import net.bungie.api.destiny.definitions.common.DestinyDisplayPropertiesDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyActivityDefinition extends DestinyDefinition
 {

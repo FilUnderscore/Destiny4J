@@ -1,6 +1,6 @@
 package net.bungie.api.destiny.definitions;
 
-import net.bungie.api.destiny.manifest.DestinyManifest;
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
 
 public class DestinyProgressionRewardItemQuantity
 {

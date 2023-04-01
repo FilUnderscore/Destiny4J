@@ -2,12 +2,13 @@ package net.bungie.api.destiny.definitions.seasons;
 
 import java.util.Date;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyDefinition;
 import net.bungie.api.destiny.definitions.DestinyInventoryItemDefinition;
 import net.bungie.api.destiny.definitions.DestinyProgressionDefinition;
 import net.bungie.api.destiny.definitions.common.DestinyDisplayPropertiesDefinition;
 import net.bungie.api.destiny.definitions.presentation.DestinyPresentationNodeDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinySeasonDefinition extends DestinyDefinition
 {

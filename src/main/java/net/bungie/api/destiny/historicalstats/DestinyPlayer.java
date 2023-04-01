@@ -1,8 +1,9 @@
 package net.bungie.api.destiny.historicalstats;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyClassDefinition;
 import net.bungie.api.destiny.definitions.DestinyInventoryItemDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 import net.bungie.api.user.UserInfoCard;
 
 public class DestinyPlayer 

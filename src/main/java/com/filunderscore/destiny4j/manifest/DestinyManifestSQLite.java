@@ -1,4 +1,4 @@
-package net.bungie.api.destiny.manifest;
+package com.filunderscore.destiny4j.manifest;
 
 import java.io.File;
 import java.io.FileOutputStream;

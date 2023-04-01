@@ -2,10 +2,11 @@ package net.bungie.api.destiny.milestones;
 
 import java.util.Map;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyActivityDefinition;
 import net.bungie.api.destiny.definitions.DestinyObjectiveDefinition;
 import net.bungie.api.destiny.definitions.activitymodifiers.DestinyActivityModifierDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyPublicMilestoneChallengeActivity 
 {

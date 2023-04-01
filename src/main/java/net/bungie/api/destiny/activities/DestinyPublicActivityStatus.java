@@ -1,9 +1,10 @@
 package net.bungie.api.destiny.activities;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.DestinyItemQuantity;
 import net.bungie.api.destiny.definitions.DestinyObjectiveDefinition;
 import net.bungie.api.destiny.definitions.activitymodifiers.DestinyActivityModifierDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyPublicActivityStatus 
 {

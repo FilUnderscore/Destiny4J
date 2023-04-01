@@ -3,9 +3,10 @@ package net.bungie.api.destiny.definitions;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.DestinyClass;
 import net.bungie.api.destiny.DestinyGender;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyClassDefinition extends DestinyDefinition
 {

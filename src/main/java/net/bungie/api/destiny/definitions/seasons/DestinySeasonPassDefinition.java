@@ -1,9 +1,10 @@
 package net.bungie.api.destiny.definitions.seasons;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.definitions.DestinyDefinition;
 import net.bungie.api.destiny.definitions.DestinyProgressionDefinition;
 import net.bungie.api.destiny.definitions.common.DestinyDisplayPropertiesDefinition;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinySeasonPassDefinition extends DestinyDefinition
 {

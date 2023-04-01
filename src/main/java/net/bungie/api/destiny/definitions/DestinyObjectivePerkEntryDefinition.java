@@ -1,7 +1,8 @@
 package net.bungie.api.destiny.definitions;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.destiny.DestinyObjectiveGrantStyle;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyObjectivePerkEntryDefinition 
 {

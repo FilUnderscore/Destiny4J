@@ -1,9 +1,10 @@
 package net.bungie.api.destiny.historicalstats;
 
+import com.filunderscore.destiny4j.manifest.DestinyManifest;
+
 import net.bungie.api.BungieMembershipType;
 import net.bungie.api.destiny.definitions.DestinyActivityDefinition;
 import net.bungie.api.destiny.historicalstats.definitions.DestinyActivityModeType;
-import net.bungie.api.destiny.manifest.DestinyManifest;
 
 public class DestinyHistoricalStatsActivity 
 {

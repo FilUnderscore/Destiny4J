@@ -1,4 +1,4 @@
-package com.filunderscore.destiny4j.impl.rest;
+package com.filunderscore.destiny4j.impl.rest.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;

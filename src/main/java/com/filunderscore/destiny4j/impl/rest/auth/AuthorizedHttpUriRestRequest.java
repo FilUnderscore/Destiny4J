@@ -1,4 +1,4 @@
-package com.filunderscore.destiny4j.impl.rest;
+package com.filunderscore.destiny4j.impl.rest.auth;
 
 import java.net.URISyntaxException;
 import java.util.function.Consumer;
@@ -11,6 +11,7 @@ import com.filunderscore.destiny4j.IBearerScopedBungieNet;
 import com.filunderscore.destiny4j.IBungieNetError;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.scoped.IScopedRestRequest;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestRequest;
 
 public abstract class AuthorizedHttpUriRestRequest<Response, Request extends HttpUriRequest> extends HttpUriRestRequest<Response, Request> implements IScopedRestRequest<Response>
 {
@@ -27,7 +28,7 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 	}
 
 	@Override
-	public IScopedRestRequest<Response> authFailed(Consumer<Void> response) 
+	public final IScopedRestRequest<Response> authFailed(Consumer<Void> response) 
 	{
 		this.authFailed = response;
 		
@@ -35,7 +36,7 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 	}
 	
 	@Override
-	public void makeRequest(Consumer<Response> successConsumer, Consumer<IBungieNetError> failConsumer)
+	public final void makeRequest(Consumer<Response> successConsumer, Consumer<IBungieNetError> failConsumer)
 	{
 		// Renew access token first.
 		this.scopedBungieNet.renewAccessToken().fail(error ->

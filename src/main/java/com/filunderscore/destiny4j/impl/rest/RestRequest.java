@@ -12,7 +12,7 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 	private final List<Consumer<IBungieNetError>> failConsumers = new ArrayList<>();
 	private final List<Consumer<Response>> successConsumers = new ArrayList<>();
 	
-	private final List<ChainedRestRequest> requests = new ArrayList<>();
+	private final List<RestRequestChainEntry> chainedRequests = new ArrayList<>();
 
 	public abstract void makeRequest(Consumer<Response> successConsumer, Consumer<IBungieNetError> failConsumer);
 	
@@ -42,7 +42,7 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 	
 	private void executeChain(boolean success)
 	{
-		for(ChainedRestRequest chainedRequest : this.requests)
+		for(RestRequestChainEntry chainedRequest : this.chainedRequests)
 		{
 			if((chainedRequest.onSuccess && !success) || chainedRequest.request == null)
 				continue;
@@ -76,7 +76,7 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 	@Override
 	public final IRestRequest<Response> chain(@SuppressWarnings("rawtypes") IRestRequest request) 
 	{
-		this.requests.add(new ChainedRestRequest(request, false));
+		this.chainedRequests.add(new RestRequestChainEntry(request, false));
 		
 		return this;
 	}
@@ -84,7 +84,7 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 	@Override
 	public final IRestRequest<Response> chainOnSuccess(@SuppressWarnings("rawtypes") IRestRequest request) 
 	{
-		this.requests.add(new ChainedRestRequest(request, true));
+		this.chainedRequests.add(new RestRequestChainEntry(request, true));
 		
 		return this;
 	}

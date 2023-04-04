@@ -19,9 +19,9 @@ import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembership
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.entities.user.ExactSearchRequest;
-import com.filunderscore.destiny4j.impl.rest.HttpUriGetRestRequest;
-import com.filunderscore.destiny4j.impl.rest.JsonHttpUriPostRestRequest;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriGetRestRequest;
+import com.filunderscore.destiny4j.impl.rest.http.JsonHttpUriPostRestRequest;
 
 public class BungieNetAPI implements IBungieNet
 {

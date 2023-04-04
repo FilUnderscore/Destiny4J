@@ -12,7 +12,7 @@ import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
-import com.filunderscore.destiny4j.impl.rest.UrlEncodedFormHttpUriPostRestRequest;
+import com.filunderscore.destiny4j.impl.rest.http.UrlEncodedFormHttpUriPostRestRequest;
 
 public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScopedBungieNet
 {

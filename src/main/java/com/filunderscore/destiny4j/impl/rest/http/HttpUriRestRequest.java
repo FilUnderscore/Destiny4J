@@ -1,4 +1,4 @@
-package com.filunderscore.destiny4j.impl.rest;
+package com.filunderscore.destiny4j.impl.rest.http;
 
 import java.io.IOException;
 import java.net.URI;
@@ -18,6 +18,7 @@ import com.filunderscore.destiny4j.IBungieNetError;
 import com.filunderscore.destiny4j.api.exceptions.PlatformErrorCodes;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.impl.BungieNetAPIError;
+import com.filunderscore.destiny4j.impl.rest.RestRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

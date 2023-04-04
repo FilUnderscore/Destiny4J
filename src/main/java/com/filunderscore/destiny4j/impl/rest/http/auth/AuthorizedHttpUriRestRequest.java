@@ -19,7 +19,7 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 	
 	private Consumer<Void> authFailed;
 	
-	public AuthorizedHttpUriRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<Response> responseClass, HttpClient client, HttpContext context, String url,
+	public AuthorizedHttpUriRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url,
 			IRestKVP[] urlParams, IRestKVP[] headers) throws URISyntaxException 
 	{
 		super(responseClass, client, context, url, urlParams, headers);

@@ -11,7 +11,7 @@ import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
 public class StringHttpUriPostRestRequest<Response> extends HttpUriPostRestRequest<Response>
 {
-	public StringHttpUriPostRestRequest(Class<Response> responseClass, HttpClient client,
+	public StringHttpUriPostRestRequest(Class<? extends Response> responseClass, HttpClient client,
 			HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers, String entity)
 			throws URISyntaxException, UnsupportedEncodingException 
 	{

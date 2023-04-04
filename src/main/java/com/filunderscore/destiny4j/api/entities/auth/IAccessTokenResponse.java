@@ -8,6 +8,9 @@ public interface IAccessTokenResponse
 	long getExpiresIn();
 	long getRefreshExpiresIn();
 	
+	String getError();
+	String getErrorDescription();
+	
 	String getTokenType();
 	long getMembershipId();
 }

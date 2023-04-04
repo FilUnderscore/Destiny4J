@@ -14,7 +14,7 @@ public class HttpUriPostRestRequest<Response> extends HttpUriRestRequest<Respons
 {
 	private final HttpEntity entity;
 	
-	public HttpUriPostRestRequest(Class<Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
+	public HttpUriPostRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
 			IRestKVP[] headers, HttpEntity entity) throws URISyntaxException 
 	{
 		super(responseClass, client, context, url, urlParams, headers);

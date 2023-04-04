@@ -13,7 +13,7 @@ import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
 public class UrlEncodedFormHttpUriPostRestRequest<Response> extends HttpUriPostRestRequest<Response>
 {
-	public UrlEncodedFormHttpUriPostRestRequest(Class<Response> responseClass, HttpClient client,
+	public UrlEncodedFormHttpUriPostRestRequest(Class<? extends Response> responseClass, HttpClient client,
 			HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers, BasicNameValuePair...params)
 			throws URISyntaxException, UnsupportedEncodingException 
 	{

@@ -15,7 +15,7 @@ public class AuthorizedHttpUriPostRestRequest<Response> extends AuthorizedHttpUr
 {
 	private final HttpEntity entity;
 	
-	public AuthorizedHttpUriPostRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
+	public AuthorizedHttpUriPostRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
 			IRestKVP[] headers, HttpEntity entity) throws URISyntaxException 
 	{
 		super(scopedBungieNet, responseClass, client, context, url, urlParams, headers);

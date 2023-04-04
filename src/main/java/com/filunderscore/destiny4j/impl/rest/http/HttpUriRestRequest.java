@@ -27,7 +27,7 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 {
 	protected static final Gson gson = new Gson();
 
-	private final Class<Response> responseClass;
+	private final Class<? extends Response> responseClass;
 	
 	private final HttpClient client;
 	private final HttpContext context;
@@ -35,7 +35,7 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 	private final URI uri;
 	private final IRestKVP[] headers;
 	
-	public HttpUriRestRequest(Class<Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers) throws URISyntaxException
+	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers) throws URISyntaxException
 	{
 		this.responseClass = responseClass;
 		

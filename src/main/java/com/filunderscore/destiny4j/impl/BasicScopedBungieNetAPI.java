@@ -40,7 +40,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 	{
 		try 
 		{
-			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(IAccessTokenResponse.class, this.client, this.context, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken));
+			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(AccessTokenRenewedResponse.class, this.client, this.context, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken));
 		} 
 		catch (UnsupportedEncodingException | URISyntaxException e) 
 		{
@@ -48,5 +48,67 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 		}
 		
 		return null;
+	}
+	
+	private class AccessTokenRenewedResponse implements IAccessTokenResponse
+	{
+		private String access_token;
+		private String refresh_token;
+		private long expires_in;
+		private long refresh_expires_in;
+		
+		private String token_type;
+		private long membershipId;
+		
+		private String error;
+		private String error_description;
+		
+		@Override
+		public String getAccessToken() 
+		{
+			return this.access_token;
+		}
+
+		@Override
+		public String getRefreshToken() 
+		{
+			return this.refresh_token;
+		}
+
+		@Override
+		public long getExpiresIn() 
+		{
+			return this.expires_in;
+		}
+
+		@Override
+		public long getRefreshExpiresIn() 
+		{
+			return this.refresh_expires_in;
+		}
+
+		@Override
+		public String getTokenType() 
+		{
+			return this.token_type;
+		}
+
+		@Override
+		public long getMembershipId() 
+		{
+			return this.membershipId;
+		}
+
+		@Override
+		public String getError() 
+		{
+			return this.error;
+		}
+
+		@Override
+		public String getErrorDescription() 
+		{
+			return this.error_description;
+		}
 	}
 }

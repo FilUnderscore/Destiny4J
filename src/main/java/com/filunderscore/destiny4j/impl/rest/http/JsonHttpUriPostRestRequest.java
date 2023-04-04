@@ -10,7 +10,7 @@ import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
 public class JsonHttpUriPostRestRequest<Response, Request> extends StringHttpUriPostRestRequest<Response>
 {
-	public JsonHttpUriPostRestRequest(Class<Response> responseClass, HttpClient client, HttpContext context,
+	public JsonHttpUriPostRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context,
 			String url, IRestKVP[] urlParams, IRestKVP[] headers, Request request) throws URISyntaxException, UnsupportedEncodingException 
 	{
 		super(responseClass, client, context, url, urlParams, headers, gson.toJson(request));

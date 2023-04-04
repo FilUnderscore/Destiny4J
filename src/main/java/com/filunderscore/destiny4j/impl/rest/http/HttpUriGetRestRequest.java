@@ -11,7 +11,7 @@ import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
 public class HttpUriGetRestRequest<Response> extends HttpUriRestRequest<Response, HttpGet>
 {
-	public HttpUriGetRestRequest(Class<Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
+	public HttpUriGetRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
 			IRestKVP[] headers) throws URISyntaxException 
 	{
 		super(responseClass, client, context, url, urlParams, headers);

@@ -50,7 +50,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 		return null;
 	}
 	
-	private class AccessTokenRenewedResponse implements IAccessTokenResponse
+	private final class AccessTokenRenewedResponse implements IAccessTokenResponse
 	{
 		private String access_token;
 		private String refresh_token;

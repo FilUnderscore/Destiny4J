@@ -1,8 +1,7 @@
 package com.filunderscore.destiny4j.impl.rest;
 
-import java.util.function.Consumer;
-
-import com.filunderscore.destiny4j.IBungieNetError;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public final class NullRestRequest<Response> extends RestRequest<Response>
 {
@@ -17,10 +16,10 @@ public final class NullRestRequest<Response> extends RestRequest<Response>
 	{
 		this(null);
 	}
-	
+
 	@Override
-	public void makeRequest(Consumer<Response> successConsumer, Consumer<IBungieNetError> failConsumer)
+	protected Future<Result> makeRequest() 
 	{
-		successConsumer.accept(this.response);
+		return CompletableFuture.completedFuture(new Result(this.response));
 	}
 }

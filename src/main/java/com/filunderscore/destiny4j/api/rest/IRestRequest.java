@@ -7,16 +7,23 @@ import com.filunderscore.destiny4j.IBungieNetError;
 public interface IRestRequest<Response>
 {
 	/**
-	 * Queues the REST request for execution.
+	 * Queues the REST request for execution asynchronously.
 	 */
 	void queue();
 	
 	/**
-	 * Queues the REST request for execution.
+	 * Queues the REST request for execution asynchronously.
 	 * 
 	 * @param response Callback with response data if successful, otherwise null.
 	 */
 	void queue(Consumer<Response> response);
+	
+	/**
+	 * Queues the REST request for execution synchronously.
+	 * 
+	 * @return Response.
+	 */
+	Response execute();
 	
 	/**
 	 * Sets the fail callback if an error occurs while calling queue().

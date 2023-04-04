@@ -1,6 +1,8 @@
 package com.filunderscore.destiny4j.impl.rest.http.auth;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 import org.apache.http.client.HttpClient;
@@ -9,6 +11,7 @@ import org.apache.http.protocol.HttpContext;
 
 import com.filunderscore.destiny4j.IBearerScopedBungieNet;
 import com.filunderscore.destiny4j.IBungieNetError;
+import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.scoped.IScopedRestRequest;
 import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestRequest;
@@ -35,17 +38,21 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 		return this;
 	}
 	
+	private IBungieNetError renewError;
+	
 	@Override
-	public final void makeRequest(Consumer<Response> successConsumer, Consumer<IBungieNetError> failConsumer)
+	public final Future<Result> makeRequest()
 	{
 		// Renew access token first.
-		this.scopedBungieNet.renewAccessToken().fail(error ->
+		IAccessTokenResponse accessTokenResponse = this.scopedBungieNet.renewAccessToken().fail(error ->
 		{
 			this.authFailed.accept(null);
-			failConsumer.accept(error);
-		}).queue(response ->
-		{
-			super.makeRequest(successConsumer, failConsumer);
-		});;
+			renewError = error;
+		}).execute();
+	
+		if(accessTokenResponse == null || renewError != null)
+			return CompletableFuture.completedFuture(new Result(renewError));
+		
+		return super.makeRequest();
 	}
 }

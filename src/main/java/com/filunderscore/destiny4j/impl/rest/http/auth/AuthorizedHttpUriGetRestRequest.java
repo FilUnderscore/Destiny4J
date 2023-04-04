@@ -1,4 +1,4 @@
-package com.filunderscore.destiny4j.impl.rest.auth;
+package com.filunderscore.destiny4j.impl.rest.http.auth;
 
 import java.net.URI;
 import java.net.URISyntaxException;

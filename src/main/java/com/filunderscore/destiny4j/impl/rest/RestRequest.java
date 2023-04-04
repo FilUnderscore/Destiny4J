@@ -48,12 +48,6 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 					successConsumer.accept(response);
 			}
 			
-			executeChain(true);for(Consumer<Response> successConsumer : this.successConsumers)
-			{
-				if(successConsumer != null)
-					successConsumer.accept(response);
-			}
-			
 			executeChain(true);
 		}
 		else

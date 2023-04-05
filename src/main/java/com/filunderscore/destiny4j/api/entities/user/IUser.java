@@ -5,7 +5,6 @@ import com.filunderscore.destiny4j.api.entities.user.membership.IUserMembershipD
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
 public interface IUser extends IUserInfo
-{
+{	
 	IRestRequest<IUserMembershipData> getMembershipData(BungieMembershipType type);
-	IRestRequest<IUserMembershipData> getMembershipData();
 }

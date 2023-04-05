@@ -1,14 +1,16 @@
 package com.filunderscore.destiny4j.impl;
 
-import com.filunderscore.destiny4j.IBearerScopedBungieNet;
+import com.filunderscore.destiny4j.api.IScopedAppAPI;
+import com.filunderscore.destiny4j.api.IScopedUserAPI;
 import com.filunderscore.destiny4j.api.entities.app.IApiUsage;
 import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
+import com.filunderscore.destiny4j.api.entities.user.membership.IUserMembershipData;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.rest.NullRestRequest;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
 
-public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI implements IBearerScopedBungieNet
+public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI implements IScopedAppAPI, IScopedUserAPI
 {
 	private long lastRenewedSeconds;
 	private IAccessTokenResponse previousRenewResponse;
@@ -54,5 +56,11 @@ public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI impl
 		{
 			return new NullRestRequest<IAccessTokenResponse>(this.previousRenewResponse);
 		}
+	}
+
+	@Override
+	public IRestRequest<IUserMembershipData> getMembershipDataForCurrentUser() 
+	{
+		return null;
 	}
 }

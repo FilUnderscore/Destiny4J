@@ -5,27 +5,26 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.protocol.HttpContext;
 
-import com.filunderscore.destiny4j.IBearerScopedBungieNet;
 import com.filunderscore.destiny4j.IBungieNetError;
 import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.scoped.IScopedRestRequest;
+import com.filunderscore.destiny4j.impl.BearerScopedBungieNetAPI;
 import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestRequest;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestSession;
 
 public abstract class AuthorizedHttpUriRestRequest<Response, Request extends HttpUriRequest> extends HttpUriRestRequest<Response, Request> implements IScopedRestRequest<Response>
 {
-	private final IBearerScopedBungieNet scopedBungieNet;
+	private final BearerScopedBungieNetAPI scopedBungieNet;
 	
 	private Consumer<Void> authFailed;
 	
-	public AuthorizedHttpUriRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url,
-			IRestKVP[] urlParams, IRestKVP[] headers) throws URISyntaxException 
+	public AuthorizedHttpUriRestRequest(BearerScopedBungieNetAPI scopedBungieNet, Class<? extends Response> responseClass, HttpUriRestSession session, String url,
+			IRestKVP[] urlParams, IRestKVP[] additionalHeaders) throws URISyntaxException 
 	{
-		super(responseClass, client, context, url, urlParams, headers);
+		super(responseClass, session, url, urlParams, additionalHeaders);
 		
 		this.scopedBungieNet = scopedBungieNet;
 	}

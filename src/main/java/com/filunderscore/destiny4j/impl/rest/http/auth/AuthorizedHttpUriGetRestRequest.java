@@ -3,20 +3,19 @@ package com.filunderscore.destiny4j.impl.rest.http.auth;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.protocol.HttpContext;
 
-import com.filunderscore.destiny4j.IBearerScopedBungieNet;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
+import com.filunderscore.destiny4j.impl.BearerScopedBungieNetAPI;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestSession;
 
 public class AuthorizedHttpUriGetRestRequest<Response> extends AuthorizedHttpUriRestRequest<Response, HttpGet>
 {
-	public AuthorizedHttpUriGetRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<? extends Response> responseClass,
-			HttpClient client, HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers)
+	public AuthorizedHttpUriGetRestRequest(BearerScopedBungieNetAPI scopedBungieNet, Class<? extends Response> responseClass,
+			HttpUriRestSession session, String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders)
 			throws URISyntaxException 
 	{
-		super(scopedBungieNet, responseClass, client, context, url, urlParams, headers);
+		super(scopedBungieNet, responseClass, session, url, urlParams, additionalHeaders);
 	}
 
 	@Override

@@ -7,16 +7,18 @@ import java.util.Base64;
 
 import org.apache.http.message.BasicNameValuePair;
 
-import com.filunderscore.destiny4j.IBasicScopedBungieNet;
+import com.filunderscore.destiny4j.api.IOAuth2API;
 import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestSession;
 import com.filunderscore.destiny4j.impl.rest.http.UrlEncodedFormHttpUriPostRestRequest;
 
-public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScopedBungieNet
+public class BasicScopedBungieNetAPI extends BungieNetAPI implements IOAuth2API
 {
 	private final IRestKVP client_auth_token_rest_kvp;
+	private final HttpUriRestSession session;
 	
 	public BasicScopedBungieNetAPI(String api_key, String client_id, String client_secret) 
 	{
@@ -26,6 +28,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 		String base64EncodedAuthToken = Base64.getEncoder().encodeToString(authToken.getBytes(StandardCharsets.UTF_8));
 		
 		this.client_auth_token_rest_kvp = new RestKVP("Authorization", "Basic " + base64EncodedAuthToken);
+		this.session = new HttpUriRestSession(this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp });
 	}
 
 	protected BasicScopedBungieNetAPI(BasicScopedBungieNetAPI basicScopedAPI) 
@@ -33,6 +36,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 		super(basicScopedAPI);
 		
 		this.client_auth_token_rest_kvp = basicScopedAPI.client_auth_token_rest_kvp;
+		this.session = basicScopedAPI.session;
 	}
 
 	@Override
@@ -40,7 +44,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 	{
 		try 
 		{
-			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(AccessTokenRenewedResponse.class, this.client, this.context, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken));
+			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(AccessTokenRenewedResponse.class, this.session, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken));
 		} 
 		catch (UnsupportedEncodingException | URISyntaxException e) 
 		{
@@ -48,6 +52,12 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IBasicScope
 		}
 		
 		return null;
+	}
+
+	@Override
+	public IRestRequest<IAccessTokenResponse> renewAccessToken() 
+	{
+		throw new UnsupportedOperationException("Cannot renew access token with a refresh token!");
 	}
 	
 	private final class AccessTokenRenewedResponse implements IAccessTokenResponse

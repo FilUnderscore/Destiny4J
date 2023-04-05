@@ -3,18 +3,16 @@ package com.filunderscore.destiny4j.impl.rest.http;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.protocol.HttpContext;
 
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
 public class HttpUriGetRestRequest<Response> extends HttpUriRestRequest<Response, HttpGet>
 {
-	public HttpUriGetRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
-			IRestKVP[] headers) throws URISyntaxException 
+	public HttpUriGetRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams,
+			IRestKVP[] additionalHeaders) throws URISyntaxException 
 	{
-		super(responseClass, client, context, url, urlParams, headers);
+		super(responseClass, session, url, urlParams, additionalHeaders);
 	}
 
 	@Override

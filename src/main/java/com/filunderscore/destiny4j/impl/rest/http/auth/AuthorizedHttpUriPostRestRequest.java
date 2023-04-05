@@ -4,21 +4,20 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.protocol.HttpContext;
 
-import com.filunderscore.destiny4j.IBearerScopedBungieNet;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
+import com.filunderscore.destiny4j.impl.BearerScopedBungieNetAPI;
+import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestSession;
 
 public class AuthorizedHttpUriPostRestRequest<Response> extends AuthorizedHttpUriRestRequest<Response, HttpPost>
 {
 	private final HttpEntity entity;
 	
-	public AuthorizedHttpUriPostRestRequest(IBearerScopedBungieNet scopedBungieNet, Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams,
-			IRestKVP[] headers, HttpEntity entity) throws URISyntaxException 
+	public AuthorizedHttpUriPostRestRequest(BearerScopedBungieNetAPI scopedBungieNet, Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams,
+			IRestKVP[] additionalHeaders, HttpEntity entity) throws URISyntaxException 
 	{
-		super(scopedBungieNet, responseClass, client, context, url, urlParams, headers);
+		super(scopedBungieNet, responseClass, session, url, urlParams, additionalHeaders);
 		
 		this.entity = entity;
 	}

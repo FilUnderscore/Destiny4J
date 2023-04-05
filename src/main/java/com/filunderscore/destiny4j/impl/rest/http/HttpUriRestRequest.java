@@ -1,20 +1,22 @@
 package com.filunderscore.destiny4j.impl.rest.http;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.plexus.util.StringUtils;
 
+import com.filunderscore.destiny4j.api.annotations.rest.InjectRestSession;
 import com.filunderscore.destiny4j.api.exceptions.PlatformErrorCodes;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.impl.BungieNetAPIError;
@@ -29,20 +31,17 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 
 	private final Class<? extends Response> responseClass;
 	
-	private final HttpClient client;
-	private final HttpContext context;
+	private final HttpUriRestSession session;
 	
 	private final URI uri;
-	private final IRestKVP[] headers;
+	private final IRestKVP[] additionalHeaders;
 	
-	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpClient client, HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers) throws URISyntaxException
+	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders) throws URISyntaxException
 	{
 		this.responseClass = responseClass;
-		
-		this.client = client;
-		this.context = context;
 
-		this.headers = headers;
+		this.session = session;
+		this.additionalHeaders = additionalHeaders;
 		
 		// Build URI.
 		
@@ -68,7 +67,7 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 				
 				try 
 				{
-					HttpResponse httpResponse = HttpUriRestRequest.this.client.execute(request, HttpUriRestRequest.this.context);
+					HttpResponse httpResponse = HttpUriRestRequest.this.session.getClient().execute(request, HttpUriRestRequest.this.session.getContext());
 					String jsonString = EntityUtils.toString(httpResponse.getEntity());
 					
 					System.out.println(String.format("%s %s %s", request.getMethod(), HttpUriRestRequest.this.uri.toString(), StringUtils.abbreviate(jsonString, 1000)));
@@ -91,7 +90,10 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 					}
 					else
 					{
-						return new Result(gson.fromJson(json.get("Response"), HttpUriRestRequest.this.responseClass));
+						Response response = gson.fromJson(json.get("Response"), HttpUriRestRequest.this.responseClass);
+						HttpUriRestRequest.this.setResponseSession(response);
+						
+						return new Result(response);
 					}
 				} 
 				catch (IOException e) 
@@ -104,11 +106,40 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 		});
 	}
 	
+	private void setResponseSession(Response response)
+	{
+		Optional<Field> optionalField = Arrays.stream(this.responseClass.getDeclaredFields()).findFirst().filter(classField -> classField.isAnnotationPresent(InjectRestSession.class));
+		
+		if(optionalField.isEmpty())
+			return;
+		
+		Field field = optionalField.get();
+		
+		if(!field.trySetAccessible())
+		{
+			return;
+		}
+		
+		try 
+		{
+			field.set(response, this.session);
+		} 
+		catch (IllegalArgumentException | IllegalAccessException e) 
+		{
+			System.err.println(String.format("Failed to inject %s field with current RestSession in class %s.", field.getName(), this.responseClass.getName()));
+		}
+	}
+	
 	private Request setupRequest()
 	{
 		Request request = this.createRequest(this.uri);
 
-		for(IRestKVP header : this.headers)
+		for(IRestKVP header : this.session.getSavedHeaders())
+		{
+			request.setHeader(header.getKey(), header.getValue());
+		}
+		
+		for(IRestKVP header : this.additionalHeaders)
 		{
 			request.setHeader(header.getKey(), header.getValue());
 		}

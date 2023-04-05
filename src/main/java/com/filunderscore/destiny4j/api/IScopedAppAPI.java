@@ -1,13 +1,10 @@
-package com.filunderscore.destiny4j;
+package com.filunderscore.destiny4j.api;
 
 import com.filunderscore.destiny4j.api.entities.app.IApiUsage;
-import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
-public interface IBearerScopedBungieNet extends IBasicScopedBungieNet
+public interface IScopedAppAPI extends IAppAPI
 {
-	IRestRequest<IAccessTokenResponse> renewAccessToken();
-	
 	/**
 	 * GET: /App/ApiUsage/
 	 * <br><br>

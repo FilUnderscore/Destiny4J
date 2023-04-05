@@ -4,19 +4,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HttpContext;
 
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 
-public class UrlEncodedFormHttpUriPostRestRequest<Response> extends HttpUriPostRestRequest<Response>
+public final class UrlEncodedFormHttpUriPostRestRequest<Response> extends HttpUriPostRestRequest<Response>
 {
-	public UrlEncodedFormHttpUriPostRestRequest(Class<? extends Response> responseClass, HttpClient client,
-			HttpContext context, String url, IRestKVP[] urlParams, IRestKVP[] headers, BasicNameValuePair...params)
+	public UrlEncodedFormHttpUriPostRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session,
+			String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders, BasicNameValuePair...params)
 			throws URISyntaxException, UnsupportedEncodingException 
 	{
-		super(responseClass, client, context, url, urlParams, headers, new UrlEncodedFormEntity(Arrays.asList(params)));
+		super(responseClass, session, url, urlParams, additionalHeaders, new UrlEncodedFormEntity(Arrays.asList(params)));
 	}
 }

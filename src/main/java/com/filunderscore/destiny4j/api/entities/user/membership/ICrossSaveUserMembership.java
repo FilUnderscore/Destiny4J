@@ -6,7 +6,7 @@ import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
 public interface ICrossSaveUserMembership extends IUserMembership
 {
-	IRestRequest<IUserMembership> getCrossSaveOverride();
+	BungieMembershipType getCrossSaveOverride();
 	Set<BungieMembershipType> getApplicableMembershipType();
 	
 	boolean isPublic();

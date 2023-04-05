@@ -1,24 +1,13 @@
-package com.filunderscore.destiny4j;
+package com.filunderscore.destiny4j.api;
 
-import java.util.Map;
-
-import com.filunderscore.destiny4j.api.entities.app.IApplication;
 import com.filunderscore.destiny4j.api.entities.manifest.IDestinyManifest;
 import com.filunderscore.destiny4j.api.entities.manifest.IManifestEntity;
-import com.filunderscore.destiny4j.api.entities.user.IBungieNetUser;
 import com.filunderscore.destiny4j.api.entities.user.IUser;
 import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembershipType;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
-public interface IBungieNet 
-{	
-	/**
-	 * GET: /App/FirstParty/
-	 * 
-	 * @return Get list of applications created by Bungie.
-	 */
-	IRestRequest<IApplication[]> getBungieApplications();
-	
+public interface IDestiny2API 
+{
 	/**
 	 * GET: /Destiny2/Manifest/
 	 * 
@@ -48,10 +37,5 @@ public interface IBungieNet
 	 */
 	<T extends IManifestEntity> IRestRequest<T> getDestinyEntityDefinition(Class<T> entityType, long hashIdentifier);
 	
-	IRestRequest<IUser[]> searchDestinyPlayerByBungieName(BungieMembershipType type, String displayName, byte displayNameCode);
-	
-	IRestRequest<IBungieNetUser> getBungieNetUserById(long membershipId);
-	IRestRequest<Map<String, Byte>> getSanitizedPlatformDisplayNames(long membershipId);
-
-	// TODO: Get Credential Types for Target Account
+	IRestRequest<IUser[]> searchDestinyPlayerByBungieName(BungieMembershipType type, String displayName, byte displayNameCode);	
 }

@@ -8,7 +8,7 @@ import com.filunderscore.destiny4j.api.entities.user.membership.IUserMembershipD
 
 public final class UserMembershipData implements IUserMembershipData
 {
-	private GroupUserInfo[] destinyMemberships;
+	private GroupUser[] destinyMemberships;
 	private Long primaryMembershipId;
 	private BungieNetUser bungieNetUser;
 	

@@ -5,20 +5,15 @@ import java.util.Set;
 
 import com.filunderscore.destiny4j.api.IUserAPI;
 import com.filunderscore.destiny4j.api.annotations.InjectAPI;
-import com.filunderscore.destiny4j.api.annotations.rest.InjectRestSession;
 import com.filunderscore.destiny4j.api.entities.user.IUser;
 import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembershipType;
 import com.filunderscore.destiny4j.api.entities.user.membership.IUserMembershipData;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
-import com.filunderscore.destiny4j.api.rest.IRestSession;
 
-public final class User implements IUser
+public class User implements IUser
 {
-	@InjectRestSession
-	private IRestSession session;
-	
 	@InjectAPI
-	private IUserAPI userAPI;
+	protected IUserAPI userAPI;
 	
 	private String supplementalDisplayName;
 	private String iconPath;
@@ -29,7 +24,7 @@ public final class User implements IUser
 	private long membershipId;
 	private String displayName;
 	private String bungieGlobalDisplayName;
-	private Byte bungieGlobalDisplayNameCode;
+	private Short bungieGlobalDisplayNameCode;
 	
 	@Override
 	public String getSupplementalDisplayName() 
@@ -93,7 +88,7 @@ public final class User implements IUser
 	}
 
 	@Override
-	public Byte getBungieGlobalDisplayNameCode() 
+	public Short getBungieGlobalDisplayNameCode() 
 	{
 		return this.bungieGlobalDisplayNameCode;
 	}
@@ -102,5 +97,14 @@ public final class User implements IUser
 	public IRestRequest<IUserMembershipData> getMembershipData(BungieMembershipType type) 
 	{	
 		return this.userAPI.getMembershipDataById(this.membershipId, type.getValue());
+	}
+
+	/**
+	 * Returns user membership data of the user's current membership (Not necessarily the native type.)
+	 */
+	@Override
+	public IRestRequest<IUserMembershipData> getMembershipData() 
+	{
+		return this.getMembershipData(this.getMembershipType());
 	}
 }

@@ -4,193 +4,274 @@ import java.util.Date;
 
 import com.filunderscore.destiny4j.api.entities.user.IBungieNetUser;
 
-public class BungieNetUser implements IBungieNetUser
+public final class BungieNetUser implements IBungieNetUser
 {
+	private long membershipId;
+	
+	private String uniqueName;
+	private String normalizedName;
+	private String displayName;
+	
+	private int profilePicture;
+	private int profileTheme;
+	
+	private int userTitle;
+	
+	private long successMessageFlags;
+	
+	private boolean isDeleted;
+	
+	private String about;
+	
+	private Date firstAccess;
+	private Date lastUpdate;
+	
+	private Long legacyPortalUID;
+	
+	// TODO: Context
+	
+	private String psnDisplayName;
+	private String xboxDisplayName;
+	private String fbDisplayName;
+
+	private Boolean showActivity;
+	
+	private String locale;
+	private boolean localeInheritDefault;
+	
+	private Long lastBanReportId;
+	
+	private boolean showGroupMessaging;
+	
+	private String profilePicturePath;
+	private String profilePictureWidePath;
+	
+	private String profileThemeName;
+
+	private String userTitleDisplay;
+	
+	private String statusText;
+	private Date statusDate;
+	
+	private Date profileBanExpire;
+	
+	private String blizzardDisplayName;
+	private String steamDisplayName;
+	private String stadiaDisplayName;
+	private String twitchDisplayName;
+	
+	private String cachedBungieGlobalDisplayName;
+	private Short cachedBungieGlobalDisplayNameCode;
+	
+	private String egsDisplayName;
 
 	@Override
-	public long getMembershipId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getMembershipId() 
+	{
+		return this.membershipId;
 	}
 
 	@Override
-	public String getUniqueName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getUniqueName() 
+	{
+		return this.uniqueName;
 	}
 
 	@Override
-	public String getNormalizedName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNormalizedName() 
+	{
+		return this.normalizedName;
 	}
 
 	@Override
-	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDisplayName() 
+	{
+		return this.displayName;
 	}
 
 	@Override
-	public boolean isDeleted() {
-		// TODO Auto-generated method stub
-		return false;
+	public int getProfilePicture() 
+	{
+		return this.profilePicture;
 	}
 
 	@Override
-	public String getAbout() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getProfileTheme() 
+	{
+		return this.profileTheme;
 	}
 
 	@Override
-	public Date getFirstAccess() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getUserTitle() 
+	{
+		return this.userTitle;
 	}
 
 	@Override
-	public Date getLastUpdate() {
-		// TODO Auto-generated method stub
-		return null;
+	public long getSuccessMessageFlags() 
+	{
+		return this.successMessageFlags;
 	}
 
 	@Override
-	public Long getLegacyPortalUID() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isDeleted() 
+	{
+		return this.isDeleted;
 	}
 
 	@Override
-	public String getPSNDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getAbout() 
+	{
+		return this.about;
 	}
 
 	@Override
-	public String getXboxDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getFirstAccess() 
+	{
+		return this.firstAccess;
 	}
 
 	@Override
-	public String getFBDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getLastUpdate() 
+	{
+		return this.lastUpdate;
 	}
 
 	@Override
-	public Boolean doesShowActivity() {
-		// TODO Auto-generated method stub
-		return null;
+	public Long getLegacyPortalUID() 
+	{
+		return this.legacyPortalUID;
 	}
 
 	@Override
-	public String getLocale() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPSNDisplayName() 
+	{
+		return this.psnDisplayName;
 	}
 
 	@Override
-	public boolean doesLocaleInheritDefault() {
-		// TODO Auto-generated method stub
-		return false;
+	public String getXboxDisplayName() 
+	{
+		return this.xboxDisplayName;
 	}
 
 	@Override
-	public Long getLastBanReportId() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getFBDisplayName() 
+	{
+		return this.fbDisplayName;
 	}
 
 	@Override
-	public boolean hasShowGroupMessaging() {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean doesShowActivity() 
+	{
+		return this.showActivity;
 	}
 
 	@Override
-	public String getProfilePicturePath() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getLocale() 
+	{
+		return this.locale;
 	}
 
 	@Override
-	public String getProfilePictureWidePath() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean doesLocaleInheritDefault() 
+	{
+		return this.localeInheritDefault;
 	}
 
 	@Override
-	public String getProfileThemeName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Long getLastBanReportId() 
+	{
+		return this.lastBanReportId;
 	}
 
 	@Override
-	public String getUserTitleDisplay() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean hasShowGroupMessaging() 
+	{
+		return this.showGroupMessaging;
 	}
 
 	@Override
-	public String getStatusText() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProfilePicturePath() 
+	{
+		return this.profilePicturePath;
 	}
 
 	@Override
-	public Date getStatusDate() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProfilePictureWidePath() 
+	{
+		return this.profilePictureWidePath;
 	}
 
 	@Override
-	public Date getProfileBanExpire() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProfileThemeName() 
+	{
+		return this.profileThemeName;
 	}
 
 	@Override
-	public String getBlizzardDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getUserTitleDisplay() 
+	{
+		return this.userTitleDisplay;
 	}
 
 	@Override
-	public String getSteamDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getStatusText() 
+	{
+		return this.statusText;
 	}
 
 	@Override
-	public String getStadiaDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getStatusDate() 
+	{
+		return this.statusDate;
 	}
 
 	@Override
-	public String getTwitchDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getProfileBanExpire() 
+	{
+		return this.profileBanExpire;
 	}
 
 	@Override
-	public String getCachedBungieGlobalDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getBlizzardDisplayName() 
+	{
+		return this.blizzardDisplayName;
 	}
 
 	@Override
-	public Byte getCachedBungieGlobalDisplayNameCode() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getSteamDisplayName() 
+	{
+		return this.steamDisplayName;
 	}
 
 	@Override
-	public String getEGSDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getStadiaDisplayName() 
+	{
+		return this.stadiaDisplayName;
 	}
 
+	@Override
+	public String getTwitchDisplayName() 
+	{
+		return this.twitchDisplayName;
+	}
+
+	@Override
+	public String getCachedBungieGlobalDisplayName() 
+	{
+		return this.cachedBungieGlobalDisplayName;
+	}
+
+	@Override
+	public Short getCachedBungieGlobalDisplayNameCode() 
+	{
+		return this.cachedBungieGlobalDisplayNameCode;
+	}
+
+	@Override
+	public String getEGSDisplayName() 
+	{
+		return this.egsDisplayName;
+	}
 }

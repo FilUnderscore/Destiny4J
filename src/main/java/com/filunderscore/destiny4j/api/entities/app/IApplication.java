@@ -3,7 +3,9 @@ package com.filunderscore.destiny4j.api.entities.app;
 import java.util.Date;
 import java.util.Set;
 
-public interface IApplication 
+import com.filunderscore.destiny4j.api.rest.IRestEntity;
+
+public interface IApplication extends IRestEntity 
 {
 	int getApplicationId();
 	String getApplicationName();

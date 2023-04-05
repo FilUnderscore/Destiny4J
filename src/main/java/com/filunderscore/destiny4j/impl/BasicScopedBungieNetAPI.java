@@ -28,7 +28,7 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IOAuth2API
 		String base64EncodedAuthToken = Base64.getEncoder().encodeToString(authToken.getBytes(StandardCharsets.UTF_8));
 		
 		this.client_auth_token_rest_kvp = new RestKVP("Authorization", "Basic " + base64EncodedAuthToken);
-		this.session = new HttpUriRestSession(this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp });
+		this.session = new HttpUriRestSession(this, this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp });
 	}
 
 	protected BasicScopedBungieNetAPI(BasicScopedBungieNetAPI basicScopedAPI) 

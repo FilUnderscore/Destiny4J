@@ -25,6 +25,7 @@ import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.entities.app.Application;
 import com.filunderscore.destiny4j.impl.entities.user.ExactSearchRequest;
 import com.filunderscore.destiny4j.impl.entities.user.User;
+import com.filunderscore.destiny4j.impl.entities.user.UserMembershipData;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
 import com.filunderscore.destiny4j.impl.rest.http.HttpUriGetRestRequest;
 import com.filunderscore.destiny4j.impl.rest.http.HttpUriRestSession;
@@ -44,7 +45,7 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	public BungieNetAPI(String api_key)
 	{
 		this.api_key_rest_kvp = new RestKVP("X-API-Key", api_key);
-		this.session = new HttpUriRestSession(this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp });
+		this.session = new HttpUriRestSession(this, this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp });
 	}
 	
 	protected BungieNetAPI(BungieNetAPI api)
@@ -124,6 +125,15 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	@Override
 	public IRestRequest<IUserMembershipData> getMembershipDataById(long membershipId, int membershipType) 
 	{
+		try 
+		{
+			return new HttpUriGetRestRequest<IUserMembershipData>(UserMembershipData.class, this.session, API_URL + "/User/GetMembershipsById/" + membershipId + "/" + membershipType + "/", new IRestKVP[0], new IRestKVP[0]);
+		} 
+		catch (URISyntaxException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

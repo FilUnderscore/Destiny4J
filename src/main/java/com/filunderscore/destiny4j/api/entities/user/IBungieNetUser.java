@@ -11,7 +11,11 @@ public interface IBungieNetUser
 	
 	String getDisplayName();
 	
-	// TODO: Profile Picture, Profile Theme, User Title, Success message flags
+	int getProfilePicture();
+	int getProfileTheme();
+	int getUserTitle();
+	
+	long getSuccessMessageFlags();
 	
 	boolean isDeleted();
 	
@@ -55,7 +59,7 @@ public interface IBungieNetUser
 	String getTwitchDisplayName();
 	
 	String getCachedBungieGlobalDisplayName();
-	Byte getCachedBungieGlobalDisplayNameCode();
+	Short getCachedBungieGlobalDisplayNameCode();
 	
 	String getEGSDisplayName();
 }

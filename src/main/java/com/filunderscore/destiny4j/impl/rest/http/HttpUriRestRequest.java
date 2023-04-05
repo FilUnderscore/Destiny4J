@@ -1,12 +1,9 @@
 package com.filunderscore.destiny4j.impl.rest.http;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -16,7 +13,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.plexus.util.StringUtils;
 
-import com.filunderscore.destiny4j.api.annotations.rest.InjectRestSession;
 import com.filunderscore.destiny4j.api.exceptions.PlatformErrorCodes;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.impl.BungieNetAPIError;
@@ -27,8 +23,9 @@ import com.google.gson.JsonParser;
 
 public abstract class HttpUriRestRequest<Response, Request extends HttpUriRequest> extends RestRequest<Response>
 {
+	private final HttpUriRestAPIInjector<Response> restAPIInjector;
 	protected static final Gson gson = new Gson();
-
+	
 	private final Class<? extends Response> responseClass;
 	
 	private final HttpUriRestSession session;
@@ -38,6 +35,7 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 	
 	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders) throws URISyntaxException
 	{
+		this.restAPIInjector = new HttpUriRestAPIInjector<Response>(session);
 		this.responseClass = responseClass;
 
 		this.session = session;
@@ -63,71 +61,52 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 			@Override
 			public Result call()
 			{
-				Request request = HttpUriRestRequest.this.setupRequest();
-				
-				try 
-				{
-					HttpResponse httpResponse = HttpUriRestRequest.this.session.getClient().execute(request, HttpUriRestRequest.this.session.getContext());
-					String jsonString = EntityUtils.toString(httpResponse.getEntity());
-					
-					System.out.println(String.format("%s %s %s", request.getMethod(), HttpUriRestRequest.this.uri.toString(), StringUtils.abbreviate(jsonString, 1000)));
-
-					JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
-					
-					int errorCode = json.get("ErrorCode").getAsInt();
-					int throttleSeconds = json.get("ThrottleSeconds").getAsInt();
-					String errorStatus = json.get("ErrorStatus").getAsString();
-					String message = json.get("Message").getAsString();
-					
-					@SuppressWarnings("unchecked")
-					Map<String, String> messageData = (Map<String, String>) gson.fromJson(json.get("MessageData"), Map.class);
-					
-					PlatformErrorCodes platformErrorCode = PlatformErrorCodes.fromIndex(errorCode);
-					
-					if(platformErrorCode != PlatformErrorCodes.Success)
-					{
-						return new Result(new BungieNetAPIError(errorCode, throttleSeconds, errorStatus, message, messageData));
-					}
-					else
-					{
-						Response response = gson.fromJson(json.get("Response"), HttpUriRestRequest.this.responseClass);
-						HttpUriRestRequest.this.setResponseSession(response);
-						
-						return new Result(response);
-					}
-				} 
-				catch (IOException e) 
-				{
-					e.printStackTrace();
-				}
-				
-				return null;
+				return request();
 			}
 		});
 	}
 	
-	private void setResponseSession(Response response)
+	private Result request()
 	{
-		Optional<Field> optionalField = Arrays.stream(this.responseClass.getDeclaredFields()).findFirst().filter(classField -> classField.isAnnotationPresent(InjectRestSession.class));
-		
-		if(optionalField.isEmpty())
-			return;
-		
-		Field field = optionalField.get();
-		
-		if(!field.trySetAccessible())
-		{
-			return;
-		}
+		Request request = this.setupRequest();
 		
 		try 
 		{
-			field.set(response, this.session);
+			HttpResponse httpResponse = this.session.getClient().execute(request, this.session.getContext());
+			String jsonString = EntityUtils.toString(httpResponse.getEntity());
+			
+			System.out.println(String.format("%s %s %s", request.getMethod(), this.uri.toString(), StringUtils.abbreviate(jsonString, 1000)));
+
+			JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
+			
+			int errorCode = json.get("ErrorCode").getAsInt();
+			int throttleSeconds = json.get("ThrottleSeconds").getAsInt();
+			String errorStatus = json.get("ErrorStatus").getAsString();
+			String message = json.get("Message").getAsString();
+			
+			@SuppressWarnings("unchecked")
+			Map<String, String> messageData = (Map<String, String>) gson.fromJson(json.get("MessageData"), Map.class);
+			
+			PlatformErrorCodes platformErrorCode = PlatformErrorCodes.fromIndex(errorCode);
+			
+			if(platformErrorCode != PlatformErrorCodes.Success)
+			{
+				return new Result(new BungieNetAPIError(errorCode, throttleSeconds, errorStatus, message, messageData));
+			}
+			else
+			{
+				Response response = gson.fromJson(json.get("Response"), this.responseClass);
+				this.restAPIInjector.tryInject(response);
+				
+				return new Result(response);
+			}
 		} 
-		catch (IllegalArgumentException | IllegalAccessException e) 
+		catch (IOException e) 
 		{
-			System.err.println(String.format("Failed to inject %s field with current RestSession in class %s.", field.getName(), this.responseClass.getName()));
+			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	private Request setupRequest()

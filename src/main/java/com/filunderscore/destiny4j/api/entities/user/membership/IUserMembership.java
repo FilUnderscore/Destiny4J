@@ -8,5 +8,5 @@ public interface IUserMembership
 	String getDisplayName();
 	
 	String getBungieGlobalDisplayName();
-	Byte getBungieGlobalDisplayNameCode();
+	Short getBungieGlobalDisplayNameCode();
 }

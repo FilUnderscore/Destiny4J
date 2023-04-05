@@ -4,9 +4,10 @@ import com.filunderscore.destiny4j.api.entities.manifest.IDestinyManifest;
 import com.filunderscore.destiny4j.api.entities.manifest.IManifestEntity;
 import com.filunderscore.destiny4j.api.entities.user.IUser;
 import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembershipType;
+import com.filunderscore.destiny4j.api.rest.IRestAPI;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
-public interface IDestiny2API 
+public interface IDestiny2API extends IRestAPI
 {
 	/**
 	 * GET: /Destiny2/Manifest/

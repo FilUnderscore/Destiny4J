@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
-import com.filunderscore.destiny4j.IBungieNetError;
+import com.filunderscore.destiny4j.api.exceptions.IBungieNetError;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 
 public abstract class RestRequest<Response> implements IRestRequest<Response>

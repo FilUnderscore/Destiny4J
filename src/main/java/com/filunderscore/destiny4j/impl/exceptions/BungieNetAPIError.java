@@ -1,8 +1,8 @@
-package com.filunderscore.destiny4j.impl;
+package com.filunderscore.destiny4j.impl.exceptions;
 
 import java.util.Map;
 
-import com.filunderscore.destiny4j.IBungieNetError;
+import com.filunderscore.destiny4j.api.exceptions.IBungieNetError;
 
 public final class BungieNetAPIError implements IBungieNetError
 {

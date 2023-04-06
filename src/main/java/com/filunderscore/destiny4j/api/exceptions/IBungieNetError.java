@@ -1,4 +1,4 @@
-package com.filunderscore.destiny4j;
+package com.filunderscore.destiny4j.api.exceptions;
 
 import java.util.Map;
 

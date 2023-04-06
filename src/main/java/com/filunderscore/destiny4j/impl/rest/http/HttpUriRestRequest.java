@@ -15,7 +15,7 @@ import org.codehaus.plexus.util.StringUtils;
 
 import com.filunderscore.destiny4j.api.exceptions.PlatformErrorCodes;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
-import com.filunderscore.destiny4j.impl.BungieNetAPIError;
+import com.filunderscore.destiny4j.impl.exceptions.BungieNetAPIError;
 import com.filunderscore.destiny4j.impl.rest.RestRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

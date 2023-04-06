@@ -2,7 +2,7 @@ package com.filunderscore.destiny4j.api.rest;
 
 import java.util.function.Consumer;
 
-import com.filunderscore.destiny4j.IBungieNetError;
+import com.filunderscore.destiny4j.api.exceptions.IBungieNetError;
 
 public interface IRestRequest<Response>
 {

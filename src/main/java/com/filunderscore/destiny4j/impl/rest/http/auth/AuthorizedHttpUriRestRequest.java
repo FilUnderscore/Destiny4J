@@ -7,8 +7,8 @@ import java.util.function.Consumer;
 
 import org.apache.http.client.methods.HttpUriRequest;
 
-import com.filunderscore.destiny4j.IBungieNetError;
 import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
+import com.filunderscore.destiny4j.api.exceptions.IBungieNetError;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.scoped.IScopedRestRequest;
 import com.filunderscore.destiny4j.impl.BearerScopedBungieNetAPI;

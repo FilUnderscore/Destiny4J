@@ -3,12 +3,15 @@ package com.filunderscore.destiny4j.impl;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
 
 import com.filunderscore.destiny4j.api.IOAuth2API;
 import com.filunderscore.destiny4j.api.entities.auth.IAccessTokenResponse;
+import com.filunderscore.destiny4j.api.events.IAccessTokenResponseEvent;
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.rest.RestKVP;
@@ -19,6 +22,8 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IOAuth2API
 {
 	private final IRestKVP client_auth_token_rest_kvp;
 	private final HttpUriRestSession session;
+	
+	private final List<IAccessTokenResponseEvent> accessTokenResponseEventCallbacks = new ArrayList<>();
 	
 	public BasicScopedBungieNetAPI(String api_key, String client_id, String client_secret) 
 	{
@@ -44,7 +49,13 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IOAuth2API
 	{
 		try 
 		{
-			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(AccessTokenRenewedResponse.class, this.session, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken));
+			return new UrlEncodedFormHttpUriPostRestRequest<IAccessTokenResponse>(AccessTokenRenewedResponse.class, this.session, API_URL + "/App/OAuth/Token/", new IRestKVP[0], new IRestKVP[] { this.client_auth_token_rest_kvp, new RestKVP("Content-Type", "application/x-www-form-urlencoded") }, new BasicNameValuePair("grant_type", "refresh_token"), new BasicNameValuePair("refresh_token", refreshToken)).success(response ->
+			{
+				for(IAccessTokenResponseEvent event : this.accessTokenResponseEventCallbacks)
+				{
+					event.onAccessTokenResponse(response);
+				}
+			});
 		} 
 		catch (UnsupportedEncodingException | URISyntaxException e) 
 		{
@@ -52,6 +63,12 @@ public class BasicScopedBungieNetAPI extends BungieNetAPI implements IOAuth2API
 		}
 		
 		return null;
+	}
+
+	@Override
+	public void registerAccessTokenResponseEventCallback(IAccessTokenResponseEvent event) 
+	{
+		this.accessTokenResponseEventCallbacks.add(event);
 	}
 
 	@Override

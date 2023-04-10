@@ -39,7 +39,7 @@ public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI impl
 	{
 		return new HttpUriRestSession(this, this.client, this.context, new IRestKVP[] { this.api_key_rest_kvp, this.constructAuthorizationKVP() });
 	}
-
+	
 	@Override
 	public IRestRequest<IApiUsage> getApplicationApiUsage() 
 	{
@@ -59,7 +59,7 @@ public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI impl
 		
 		if(this.lastRenewedSeconds + this.previousRenewResponse.getExpiresIn() < currentSeconds)
 		{
-			return this.renewAccessToken(this.previousRenewResponse.getRefreshToken()).success(response ->
+			return super.renewAccessToken(this.previousRenewResponse.getRefreshToken()).success(response ->
 			{
 				this.previousRenewResponse = response;
 				this.lastRenewedSeconds = currentSeconds;

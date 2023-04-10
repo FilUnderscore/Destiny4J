@@ -81,6 +81,10 @@ public abstract class RestRequest<Response> implements IRestRequest<Response>
 	public final Response execute()
 	{
 		Result result = request();
+		
+		if(result == null)
+			return null;
+		
 		finish(result);
 		
 		return result.response;

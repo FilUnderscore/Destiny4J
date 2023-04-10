@@ -1,7 +1,6 @@
 package com.filunderscore.destiny4j.impl.rest.http.auth;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -15,7 +14,7 @@ public class AuthorizedHttpUriPostRestRequest<Response> extends AuthorizedHttpUr
 	private final HttpEntity entity;
 	
 	public AuthorizedHttpUriPostRestRequest(BearerScopedBungieNetAPI scopedBungieNet, Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams,
-			IRestKVP[] additionalHeaders, HttpEntity entity) throws URISyntaxException 
+			IRestKVP[] additionalHeaders, HttpEntity entity)
 	{
 		super(scopedBungieNet, responseClass, session, url, urlParams, additionalHeaders);
 		

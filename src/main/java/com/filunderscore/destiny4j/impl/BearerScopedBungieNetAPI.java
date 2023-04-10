@@ -1,7 +1,5 @@
 package com.filunderscore.destiny4j.impl;
 
-import java.net.URISyntaxException;
-
 import com.filunderscore.destiny4j.api.IScopedAppAPI;
 import com.filunderscore.destiny4j.api.IScopedUserAPI;
 import com.filunderscore.destiny4j.api.entities.app.IApiUsage;
@@ -75,15 +73,6 @@ public final class BearerScopedBungieNetAPI extends BasicScopedBungieNetAPI impl
 	@Override
 	public IRestRequest<IUserMembershipData> getMembershipDataForCurrentUser() 
 	{
-		try 
-		{
-			return new HttpUriGetRestRequest<IUserMembershipData>(UserMembershipData.class, this.session, API_URL + "/User/GetMembershipsForCurrentUser/", new IRestKVP[0], new IRestKVP[0]);
-		} 
-		catch (URISyntaxException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return new HttpUriGetRestRequest<IUserMembershipData>(UserMembershipData.class, this.session, API_URL + "/User/GetMembershipsForCurrentUser/");
 	}
 }

@@ -20,7 +20,7 @@ import org.apache.commons.io.IOUtils;
 import com.filunderscore.destiny4j.api.entities.manifest.IDestinyDefinitionEntity;
 import com.filunderscore.destiny4j.api.entities.manifest.IDestinyManifest;
 
-public class SQLiteDestinyEntityManifestParser extends DestinyEntityManifestParser
+public final class SQLiteDestinyEntityManifestParser extends DestinyEntityManifestParser
 {
 	private Connection conn = null;
 	

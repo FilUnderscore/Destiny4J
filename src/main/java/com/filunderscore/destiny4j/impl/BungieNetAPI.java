@@ -1,7 +1,5 @@
 package com.filunderscore.destiny4j.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import org.apache.http.client.HttpClient;
@@ -58,31 +56,13 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	@Override
 	public IRestRequest<IApplication[]> getBungieApplications() 
 	{
-		try 
-		{
-			return new HttpUriGetRestRequest<IApplication[]>(Application[].class, this.session, API_URL + "/App/FirstParty/", new IRestKVP[0], new IRestKVP[0]);
-		} 
-		catch (URISyntaxException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return new HttpUriGetRestRequest<IApplication[]>(Application[].class, this.session, API_URL + "/App/FirstParty/");
 	}
 
 	@Override
 	public IRestRequest<IDestinyManifest> getDestinyManifest() 
 	{
-		try 
-		{
-			return new HttpUriGetRestRequest<IDestinyManifest>(DestinyManifest.class, this.session, API_URL + "/Destiny2/Manifest/", new IRestKVP[0], new IRestKVP[0]);
-		} 
-		catch (URISyntaxException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return new HttpUriGetRestRequest<IDestinyManifest>(DestinyManifest.class, this.session, API_URL + "/Destiny2/Manifest/");
 	}
 
 	@Override
@@ -96,16 +76,7 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	public IRestRequest<IUser[]> searchDestinyPlayerByBungieName(BungieMembershipType type,
 			String displayName, byte displayNameCode) 
 	{
-		try 
-		{
-			return new JsonHttpUriPostRestRequest<IUser[], ExactSearchRequest>(User[].class, this.session, API_URL + "/Destiny2/SearchDestinyPlayerByBungieName/" + type.getValue() + "/", new RestKVP[0], new IRestKVP[0], new ExactSearchRequest(displayName, displayNameCode));
-		} 
-		catch (UnsupportedEncodingException | URISyntaxException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return new JsonHttpUriPostRestRequest<IUser[], ExactSearchRequest>(User[].class, this.session, API_URL + "/Destiny2/SearchDestinyPlayerByBungieName/" + type.getValue() + "/", new ExactSearchRequest(displayName, displayNameCode));
 	}
 
 	@Override
@@ -135,16 +106,7 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	@Override
 	public IRestRequest<IUserMembershipData> getMembershipDataById(long membershipId, int membershipType) 
 	{
-		try 
-		{
-			return new HttpUriGetRestRequest<IUserMembershipData>(UserMembershipData.class, this.session, API_URL + "/User/GetMembershipsById/" + membershipId + "/" + membershipType + "/", new IRestKVP[0], new IRestKVP[0]);
-		} 
-		catch (URISyntaxException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
+		return new HttpUriGetRestRequest<IUserMembershipData>(UserMembershipData.class, this.session, API_URL + "/User/GetMembershipsById/" + membershipId + "/" + membershipType + "/");
 	}
 
 	@Override

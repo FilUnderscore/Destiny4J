@@ -1,6 +1,5 @@
 package com.filunderscore.destiny4j.impl.rest.http.auth;
 
-import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
@@ -22,7 +21,7 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 	private Consumer<Void> authFailed;
 	
 	public AuthorizedHttpUriRestRequest(BearerScopedBungieNetAPI scopedBungieNet, Class<? extends Response> responseClass, HttpUriRestSession session, String url,
-			IRestKVP[] urlParams, IRestKVP[] additionalHeaders) throws URISyntaxException 
+			IRestKVP[] urlParams, IRestKVP[] additionalHeaders) 
 	{
 		super(responseClass, session, url, urlParams, additionalHeaders);
 		
@@ -37,7 +36,7 @@ public abstract class AuthorizedHttpUriRestRequest<Response, Request extends Htt
 		return this;
 	}
 	
-	private IBungieNetError renewError;
+	private IBungieNetError renewError = null;
 	
 	@Override
 	public final Future<Result> makeRequest()

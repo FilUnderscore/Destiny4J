@@ -33,7 +33,7 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 	private final URI uri;
 	private final IRestKVP[] additionalHeaders;
 	
-	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders) throws URISyntaxException
+	public HttpUriRestRequest(Class<? extends Response> responseClass, HttpUriRestSession session, String url, IRestKVP[] urlParams, IRestKVP[] additionalHeaders)
 	{
 		this.restAPIInjector = new HttpUriRestAPIInjector<Response>(session);
 		this.responseClass = responseClass;
@@ -41,16 +41,29 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 		this.session = session;
 		this.additionalHeaders = additionalHeaders;
 		
-		// Build URI.
-		
-		URIBuilder uriBuilder = new URIBuilder(url);
+		this.uri = this.createURI(url, urlParams);
+	}
 
-		for(IRestKVP kvp : urlParams)
+	// Build URI.
+	private URI createURI(String url, IRestKVP[] urlParams)
+	{
+		try
 		{
-			uriBuilder.setParameter(kvp.getKey(), kvp.getValue());
+			URIBuilder uriBuilder = new URIBuilder(url);
+		
+			for(IRestKVP kvp : urlParams)
+			{
+				uriBuilder.setParameter(kvp.getKey(), kvp.getValue());
+			}
+		
+			return uriBuilder.build();
+		}
+		catch(URISyntaxException e)
+		{
+			System.err.println(String.format("Failed to create URI '%s' for %s request.", url, this.responseClass.getName()));
 		}
 		
-		this.uri = uriBuilder.build();
+		return null;
 	}
 	
 	@Override
@@ -69,6 +82,9 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 	private Result request()
 	{
 		Request request = this.setupRequest();
+		
+		if(request == null)
+			return null;
 		
 		try 
 		{
@@ -111,6 +127,9 @@ public abstract class HttpUriRestRequest<Response, Request extends HttpUriReques
 	
 	private Request setupRequest()
 	{
+		if(this.uri == null)
+			return null;
+		
 		Request request = this.createRequest(this.uri);
 
 		for(IRestKVP header : this.session.getSavedHeaders())

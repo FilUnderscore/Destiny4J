@@ -1,7 +1,7 @@
 package com.filunderscore.destiny4j.api;
 
+import com.filunderscore.destiny4j.api.entities.manifest.IDestinyDefinitionEntity;
 import com.filunderscore.destiny4j.api.entities.manifest.IDestinyManifest;
-import com.filunderscore.destiny4j.api.entities.manifest.IManifestEntity;
 import com.filunderscore.destiny4j.api.entities.user.IUser;
 import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembershipType;
 import com.filunderscore.destiny4j.api.rest.IRestAPI;
@@ -36,7 +36,7 @@ public interface IDestiny2API extends IRestAPI
 	 * @param hashIdentifier The hash identifier for the specific Entity you want returned.
 	 * @return
 	 */
-	<T extends IManifestEntity> IRestRequest<T> getDestinyEntityDefinition(Class<T> entityType, long hashIdentifier);
+	<T extends IDestinyDefinitionEntity> IRestRequest<T> getDestinyEntityDefinition(Class<T> entityType, long hashIdentifier);
 	
 	IRestRequest<IUser[]> searchDestinyPlayerByBungieName(BungieMembershipType type, String displayName, byte displayNameCode);	
 }

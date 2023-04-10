@@ -2,6 +2,6 @@ package com.filunderscore.destiny4j.api.entities.manifest;
 
 public interface IGearAssetDataBase 
 {
-	String getVersion();
+	int getVersion();
 	String getPath();
 }

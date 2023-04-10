@@ -1,8 +1,8 @@
 package com.filunderscore.destiny4j.api.entities.items;
 
-import com.filunderscore.destiny4j.api.entities.manifest.IManifestEntity;
+import com.filunderscore.destiny4j.api.entities.manifest.IDestinyDefinitionEntity;
 
-public interface IInventoryItem extends IManifestEntity
+public interface IInventoryItem extends IDestinyDefinitionEntity
 {
 	
 }

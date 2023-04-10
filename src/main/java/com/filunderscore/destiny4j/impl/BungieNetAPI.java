@@ -13,8 +13,8 @@ import com.filunderscore.destiny4j.api.IAppAPI;
 import com.filunderscore.destiny4j.api.IDestiny2API;
 import com.filunderscore.destiny4j.api.IUserAPI;
 import com.filunderscore.destiny4j.api.entities.app.IApplication;
+import com.filunderscore.destiny4j.api.entities.manifest.IDestinyDefinitionEntity;
 import com.filunderscore.destiny4j.api.entities.manifest.IDestinyManifest;
-import com.filunderscore.destiny4j.api.entities.manifest.IManifestEntity;
 import com.filunderscore.destiny4j.api.entities.user.IBungieNetUser;
 import com.filunderscore.destiny4j.api.entities.user.IUser;
 import com.filunderscore.destiny4j.api.entities.user.membership.BungieMembershipType;
@@ -23,6 +23,7 @@ import com.filunderscore.destiny4j.api.entities.user.membership.IUserMembershipD
 import com.filunderscore.destiny4j.api.rest.IRestKVP;
 import com.filunderscore.destiny4j.api.rest.IRestRequest;
 import com.filunderscore.destiny4j.impl.entities.app.Application;
+import com.filunderscore.destiny4j.impl.entities.manifest.DestinyManifest;
 import com.filunderscore.destiny4j.impl.entities.user.ExactSearchRequest;
 import com.filunderscore.destiny4j.impl.entities.user.User;
 import com.filunderscore.destiny4j.impl.entities.user.UserMembershipData;
@@ -59,7 +60,7 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	{
 		try 
 		{
-			return new HttpUriGetRestRequest<IApplication[]>(Application[].class, this.session, API_URL + "/App/FirstParty", new IRestKVP[0], new IRestKVP[0]);
+			return new HttpUriGetRestRequest<IApplication[]>(Application[].class, this.session, API_URL + "/App/FirstParty/", new IRestKVP[0], new IRestKVP[0]);
 		} 
 		catch (URISyntaxException e) 
 		{
@@ -72,11 +73,20 @@ public class BungieNetAPI implements IAppAPI, IUserAPI, IDestiny2API
 	@Override
 	public IRestRequest<IDestinyManifest> getDestinyManifest() 
 	{
+		try 
+		{
+			return new HttpUriGetRestRequest<IDestinyManifest>(DestinyManifest.class, this.session, API_URL + "/Destiny2/Manifest/", new IRestKVP[0], new IRestKVP[0]);
+		} 
+		catch (URISyntaxException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	@Override
-	public <T extends IManifestEntity> IRestRequest<T> getDestinyEntityDefinition(Class<T> entityType,
+	public <T extends IDestinyDefinitionEntity> IRestRequest<T> getDestinyEntityDefinition(Class<T> entityType,
 			long hashIdentifier) 
 	{
 		return null;

@@ -1,11 +1,7 @@
 package com.filunderscore.destiny4j.api.entities.manifest;
 
-public interface IManifestEntity 
+public interface IDestinyDefinitionDisplayProperties 
 {
-	long getHash();
-	int getIndex();
-	boolean isRedacted();
-	
 	String getName();
 	String getDescription();
 	String getIconURL();
@@ -13,4 +9,6 @@ public interface IManifestEntity
 	String[] getIconSequenceFrames();
 	
 	String getHighResIcon();
+	
+	boolean hasIcon();
 }

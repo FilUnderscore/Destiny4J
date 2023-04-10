@@ -4,6 +4,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InjectAPI 
+/**
+ * Used to inject the caller API into the entity implementation, 
+ * gets injected from the parent entity.
+ */
+public @interface InjectAPI
 {
 }
